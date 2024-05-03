@@ -1,0 +1,46 @@
+WIDTH=16;
+DEPTH=2048;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+0000: 9000; -- 	IN	  Switches
+0001: 6018; -- 	SHIFT -8		;transform into a two-bit value
+0002: 1022; -- 	STORE	servoNum
+0003: 400F; -- 	JZERO LOOP1		;if 0 jump to (HSPG1)
+0004: 2023; -- 	SUB		One
+0005: 4015; -- 	JZERO  LOOP2		;if 1 (POS) jump to(HSPG2)
+0006: 2023; -- 	SUB		One
+0007: 401B; -- 	JZERO  LOOP3
+0008: 2023; -- 	SUB		One
+0009: 4021; -- 	JZERO  LOOP4
+000A: 9000; -- 	IN	  Switches
+000B: 4824; -- 	AND	  Mask
+000C: 9801; -- 	OUT   LEDs
+000D: 9850; -- 	OUT   HSPG1
+000E: 2800; -- 	JUMP  CHECK
+000F: 280A; -- 	JUMP  START1
+0010: 9000; -- 	IN	  Switches
+0011: 4824; -- 	AND	  Mask
+0012: 9801; -- 	OUT   LEDs
+0013: 9851; -- 	OUT   HSPG2
+0014: 2800; -- 	JUMP  CHECK
+0015: 2810; -- 	JUMP  START2
+0016: 9000; -- 	IN	  Switches
+0017: 4824; -- 	AND	  Mask
+0018: 9801; -- 	OUT   LEDs
+0019: 9852; -- 	OUT   HSPG3
+001A: 2800; -- 	JUMP  CHECK
+001B: 2816; -- 	JUMP  START3
+001C: 9000; -- 	IN	  Switches
+001D: 4824; -- 	AND	  Mask
+001E: 9801; -- 	OUT   LEDs
+001F: 9853; -- 	OUT   HSPG4
+0020: 2800; -- 	JUMP  CHECK
+0021: 281C; -- 	JUMP  START4
+0022: 0000; -- servoNum:	DW 0
+0023: 0001; -- One: 	   DW 1
+0024: 00FF; -- Mask:		DW &H00FF
+[0025..07FF] : 0000; -- [empty memory]
+END;
